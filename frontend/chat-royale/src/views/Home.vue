@@ -10,8 +10,13 @@
 
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  methods: {
+
+    
+  }
 }
+
 </script>
 
 <style scoped>
