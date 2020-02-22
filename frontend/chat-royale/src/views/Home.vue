@@ -1,7 +1,7 @@
 <template>
   <div id="fullpageBG">
         <div id="logo">Chat Royale</div>
-        <button id="loginButon">Login</button>
+        <button id="loginButon" @click="routeLogin">Login</button>
   </div>
 </template>
 
