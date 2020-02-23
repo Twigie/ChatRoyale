@@ -1,14 +1,18 @@
 <template>
     <div style="text-align: center">
         <div id="textBig">Login</div>
+        <facebookauth/>
     </div>
 </template>
 
 <script>
-
+import facebookauth from "../components/facebookauth";
 
 export default {
-  name: 'loginPage'
+  name: 'loginPage',
+  components: {
+      facebookauth
+  }
 } 
 </script>
 
