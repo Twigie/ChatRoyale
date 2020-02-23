@@ -42,13 +42,6 @@ app.post("/api/games/create", (req, res) => {
 app.get("/api/games/list", (req, res) => {
     console.log(namespaces);
     res.send("namespace list");
-})
-
-
-
+});
 
 app.listen(port, () => console.log(`server started on port ${port}`));
-module.exports = {
-    namespaces,
-    io
-}
