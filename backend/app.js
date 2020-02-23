@@ -3,16 +3,17 @@ const cors = require("cors");
 const bodyParser = require("body-parser"); 
 const mongoose = require("mongoose");
 const url = "mongodb://chatRoyale:test123#@18.221.11.205:27017";
+const cookieParser = require("cookie-parser");
 
 mongoose.Promise = global.Promise;
 mongoose.connect(url, {useNewUrlParser: true,  useUnifiedTopology: true});
 
 const app = express();
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use(cors({
-    "origin": ["http://localhost:8080"],
+    "origin": ["https://localhost:8080"],
     "credentials": true,
     "methods": ["GET", "POST"]
 }));
