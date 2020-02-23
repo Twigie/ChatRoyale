@@ -1,8 +1,10 @@
 <template>
 
     <div>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <div id="chat">
-            
+        
         <div class="container">
         <img src="../assets/logo.png" alt="Avatar">
         <p>Hello. How are you today?</p>
@@ -24,7 +26,7 @@
         </div> 
     </div>
      <div class="container">
-        <input v-model="message" @keydown.enter="sendMessage" type="text" id="chatInput" value="test" required size="100">
+        <input v-model="message" @keydown.enter="sendMessage" type="text" id="chatInput" value="test" required >
         <button @click="sendMessage()" id="send" class="btn btn-primary">Send</button>
         </div>
 
@@ -58,8 +60,8 @@ export default {
     margin: 0 auto;
     
 }
-#input {
-    width: 100ps;
+#chatInput {
+    width: 90%;
 }
 #send {
     float: right;
