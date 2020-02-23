@@ -17,8 +17,6 @@ mongoose.connect(url, {useNewUrlParser: true,  useUnifiedTopology: true});
 
 const app = express();
 
-const namespaces = [];
-
 app.use(cookieParser());
 app.use(bodyParser.json());
 
@@ -56,7 +54,16 @@ const httpsServer = https.createServer(httpsOptions, app)
         console.log('server running at ' + port)
     })
 
-    const io = require("socket.io")(httpsServer);
-    // socket server creation
 
-    io.serveClient("origins", "*:*");
+
+
+
+const io = require("socket.io")(httpsServer);
+// socket server creation
+const namespaces = [];
+io.on("connection", (socket)=>{
+    console.log("Someone Connected")
+})
+io.on("message",(message)=>{
+    console.log(message)
+})
