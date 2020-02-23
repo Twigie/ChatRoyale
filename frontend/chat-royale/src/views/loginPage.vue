@@ -8,6 +8,7 @@
 <script>
 import facebookauth from "../components/facebookauth";
 
+import router from '../router'
 export default {
   name: 'loginPage',
   components: {

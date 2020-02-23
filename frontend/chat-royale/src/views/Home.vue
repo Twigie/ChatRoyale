@@ -1,34 +1,35 @@
 <template>
-  <div id="fullpageBG">
-        <div id="logo">Chat Royale</div>
-        <button id="loginButon" @click="routeLogin">Login</button>
+  <div>
+    <img class="center" src="../assets/wordLogo.png"/>
+   <!-- <button type="button" class="centerButton btn btn-primary">Login</button> -->
+    <img class="center btn" @click="routeLogin()" src="../assets/sprite.png"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
-
+import router from '../router'
 export default {
   name: 'Home',
   methods: {
+    routeLogin() {
+      router.push({path: 'login'})
+    }
 
-    
-  }
-}
+}}
 
 </script>
 
 <style scoped>
-#logo {
-font-size: 100px;
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
-#fullpageBG {
-  text-align: center;
+.centerButton {
+  margin:auto;
+  display:block;
 }
-
-
-
 
 </style>
 

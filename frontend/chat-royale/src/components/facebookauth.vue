@@ -9,7 +9,7 @@
 </template>
 
 <script>
-
+  import router from "../router"
     export default {
       data: () => ({
       facebook: {
@@ -27,7 +27,7 @@
     checkLogin() {
       FB.getLoginStatus(function(response) {
       if (response.status === 'connected') {
-        window.location = //redirect to page with logged user (you have the response token in response)
+        router.push({path: 'home'});
       } else {
       //Show the login popup
         FB.login(function(response) {
