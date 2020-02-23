@@ -38,6 +38,13 @@
 
 
 <script>
+let html = `
+    '<div class="container darker">
+    <img src="../assets/logo.png" alt="Avatar" class="right">
+    <p>${message}</p>
+    </div>
+     `;
+
 export default {
   name: 'chatComp',
   data() {
@@ -45,7 +52,8 @@ export default {
   },
   methods: {
       sendMessage(){
-          alert(this.message);
+        alert(this.message);
+        document.getElementById("chat").innerHTML = html;
       }
   }
 }
