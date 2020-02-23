@@ -35,7 +35,6 @@ app.use(cors({
 const port = process.env.PORT || 5000;
 const users = require("./routes/users");
 app.use("/api/users", users);
-
 app.post("/api/games/create", (req, res) => {
     console.log(req.body," create");
     let roomName = req.body.roomID;
@@ -46,20 +45,14 @@ app.post("/api/games/create", (req, res) => {
     res.send("created server");
 })
 
-app.get("/api/games/list", async (req, res) => {
-    console.log(req.body,"this is recieveing")
-    const room = await req.body.roomID;
-    const serverName = "";
-    namespaces.forEach((server) => {
-        console.log("for each serverid "+server.id)
-        console.log("foreach room "+room)
-        if (server.id === room) {
-            console.log("IF FI IFIFIFIF")
-            return serverName = server.id 
+app.get("/api/games/list", (req, res) => {
+    for (let i = 0; i < namespaces.length; i++) {
+        if (req.query.room === namespaces[i].id){
+            return res.status(200).send(namespaces[i].id);
         }
-    })
-    console.log("here"+serverName)
-    res.send({serverName});
+    }
+    return res.status(404).send("Requested lobby not found");
+    
 });
 
 const httpsServer = https.createServer(httpsOptions, app)

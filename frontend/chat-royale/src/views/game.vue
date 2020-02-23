@@ -9,6 +9,7 @@
 import axios from "axios";
 import chatComp from '../components/chat';
 import router from '../router';
+axios.defaults.withCredentials = true;
 export default {
   name: 'game',
   components: {
@@ -19,12 +20,16 @@ export default {
        console.log(this.$route.params)
    },
    async checkNameSpace(){
-       let {roomID} = this.$route.params
-       console.log(roomID,"RoomID craeted")
-       const data = {};
-       data["roomID"] = roomID;
-       const res = await axios.get("https://localhost:5000/api/games/list",data)
-       console.log(res)
+       let room = this.$route.params.roomID
+       const res = await axios.get("https://localhost:5000/api/games/list", { params: {
+           "room": room
+       }},  {
+                withCredentials: true
+              });
+        if (!res.status === 200) {
+            router.push("/lobby")
+        }
+       console.log(res.data);
    },
 
 },
