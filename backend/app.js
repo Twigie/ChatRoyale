@@ -4,6 +4,13 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const url = "mongodb://chatRoyale:test123#@18.221.11.205:27017";
 const cookieParser = require("cookie-parser");
+const fs = require('fs');
+const https = require('https');
+
+const httpsOptions = {
+    key: fs.readFileSync('./certs/key.pem'),
+    cert: fs.readFileSync('./certs/cert.pem')
+}
 
 mongoose.Promise = global.Promise;
 mongoose.connect(url, {useNewUrlParser: true,  useUnifiedTopology: true});
@@ -44,4 +51,7 @@ app.get("/api/games/list", (req, res) => {
     res.send("namespace list");
 });
 
-app.listen(port, () => console.log(`server started on port ${port}`));
+const httpsServer = https.createServer(httpsOptions, app)
+    .listen(port, () => {
+        console.log('server running at ' + port)
+    })
