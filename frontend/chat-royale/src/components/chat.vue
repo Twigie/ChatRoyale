@@ -1,5 +1,8 @@
 <template>
+
     <div>
+        <div id="chat">
+            
         <div class="container">
         <img src="../assets/logo.png" alt="Avatar">
         <p>Hello. How are you today?</p>
@@ -19,13 +22,13 @@
         <img src="../assets/logo.png" alt="Avatar" class="right">
         <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
         </div> 
-        <div class="container">
+    </div>
+     <div class="container">
         <input v-model="message" @keydown.enter="sendMessage" type="text" id="chatInput" value="test" required size="100">
         <button @click="sendMessage()" id="send" class="btn btn-primary">Send</button>
         </div>
-    </div>
 
-
+</div>
     
 </template>
 
@@ -44,10 +47,20 @@ export default {
       }
   }
 }
-
 </script>
 
 <style> 
+
+#chat { 
+    overflow: scroll;
+    height: 800px;
+    width:1000px;
+    margin: 0 auto;
+    
+}
+#input {
+    width: 100ps;
+}
 #send {
     float: right;
 }

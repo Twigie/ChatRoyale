@@ -1,7 +1,8 @@
 <template>
   <div>
     <img class="center" src="../assets/wordLogo.png"/>
-    <button type="button" class="centerButton btn btn-primary" @click="routeLogin()">Login</button>
+   <!-- <button type="button" class="centerButton btn btn-primary">Login</button> -->
+    <img class="center btn" @click="routeLogin()" src="../assets/sprite.png"/>
   </div>
 </template>
 
