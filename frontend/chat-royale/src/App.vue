@@ -4,6 +4,20 @@
   <router-view/>
   </div>
 </template>
+<script>
+export default {
+  mounted() {
+     window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '3563200747086858',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v6.0'
+    });
+    };
+  }
+}
+</script>>
 
 <style>
 #app {
