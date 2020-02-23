@@ -37,7 +37,7 @@ const users = require("./routes/users");
 app.use("/api/users", users);
 
 app.post("/api/games/create", (req, res) => {
-    console.log(req.body);
+    console.log(req.body," create");
     let roomName = req.body.roomID;
     let roomObj = {}
     roomObj.lobby = io.of(req.body.name);
@@ -46,9 +46,20 @@ app.post("/api/games/create", (req, res) => {
     res.send("created server");
 })
 
-app.get("/api/games/list", (req, res) => {
-    console.log(namespaces);
-    res.send("namespace list");
+app.get("/api/games/list", async (req, res) => {
+    console.log(req.body,"this is recieveing")
+    const room = await req.body.roomID;
+    const serverName = "";
+    namespaces.forEach((server) => {
+        console.log("for each serverid "+server.id)
+        console.log("foreach room "+room)
+        if (server.id === room) {
+            console.log("IF FI IFIFIFIF")
+            return serverName = server.id
+        }
+    })
+    console.log("here"+serverName)
+    res.send({serverName});
 });
 
 const httpsServer = https.createServer(httpsOptions, app)

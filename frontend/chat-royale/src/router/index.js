@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import loginPage from '../views/loginPage';
+import loginPage from '../views/loginPage'
 import game from '../views/game'
+import lobby from '../components/lobby'
 
 Vue.use(VueRouter);
 const routes = [
@@ -17,9 +18,16 @@ const routes = [
     component: loginPage
   },
   {
-    path: '/game',
+    path: '/game/:roomID',
     name: 'game',
+    props: true,
     component: game
+
+  },
+  {
+    path: '/lobby',
+    name: 'lobby',
+    component: lobby
   }
 
   // {
