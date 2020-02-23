@@ -16,11 +16,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect(url, {useNewUrlParser: true,  useUnifiedTopology: true});
 
 const app = express();
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
-// socket server creation
 
-io.serveClient("origins", "*:*");
 const namespaces = [];
 
 app.use(cookieParser());
@@ -39,7 +35,7 @@ app.post("/api/games/create", (req, res) => {
     console.log(req.body," create");
     let roomName = req.body.roomID;
     let roomObj = {}
-    roomObj.lobby = io.of(req.body.name);
+    roomObj.lobby = io.join(roomName);
     roomObj.id = roomName;
     namespaces.push(roomObj);
     res.send("created server");
@@ -59,3 +55,8 @@ const httpsServer = https.createServer(httpsOptions, app)
     .listen(port, () => {
         console.log('server running at ' + port)
     })
+
+    const io = require("socket.io")(httpsServer);
+    // socket server creation
+
+    io.serveClient("origins", "*:*");
