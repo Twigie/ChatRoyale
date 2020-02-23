@@ -19,7 +19,6 @@ export default {
       createRoom() {
             let data = {};
             data["roomID"] = this.roomName;
-            console.log(data);
             axios.post("https://localhost:5000/api/games/create", data);
             router.push({path: 'game/'+ this.roomName})
 

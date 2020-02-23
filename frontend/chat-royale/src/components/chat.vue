@@ -38,22 +38,39 @@
 
 
 <script>
-let html = `
-    '<div class="container darker">
-    <img src="../assets/logo.png" alt="Avatar" class="right">
-    <p>${message}</p>
-    </div>
-     `;
+
+
+
 
 export default {
   name: 'chatComp',
   data() {
-      message = ""
+      message = "";
+      incMessage = "";
+  },
+  events: {
+      increaseMessage: function(){
+          this.createMessage(message);
+      }
   },
   methods: {
       sendMessage(){
-        alert(this.message);
-        document.getElementById("chat").innerHTML = html;
+          let html = `
+            <div class="container darker">
+            <img src="../assets/logo.png" alt="Avatar" class="right">
+            <p>${this.message}</p>
+            </div>
+            `;
+        document.getElementById("chat").innerHTML += html;
+      },
+      createMessage(){
+          let html = `
+            <div class="container darker">
+            <img src="../assets/logo.png" alt="Avatar" class="right">
+            <p>${this.incMessage}</p>
+             </div>
+             `;
+        document.getElementById("chat").innerHTML += html;
       }
   }
 }

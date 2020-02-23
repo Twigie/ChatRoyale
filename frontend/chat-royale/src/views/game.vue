@@ -9,25 +9,43 @@
 import axios from "axios";
 import chatComp from '../components/chat';
 import router from '../router';
+import io from 'socket.io-client'
 axios.defaults.withCredentials = true;
 export default {
   name: 'game',
+  data() {
+      socket = ""
+  },
+  props: [],
   components: {
       chatComp
   },
   methods: {
    connectSocket(){
-       console.log(this.$route.params)
+       this.socket = io('https://localhost:5000',{secure: true})
+       this.socket.on('connect',function() {
+           console.log('connected')
+        //    socket.emit('room', room);
+       })
+
+
+    //    console.log(this.$route.params)
+    //    this.socket = io({rejectUnauthorized: false});  
+    //    this.socket.on((message) => {
+    //        this.$broadcast("increaseMessage",message)
+    //    })
+
    },
    async checkNameSpace(){
        let room = this.$route.params.roomID
        const res = await axios.get("https://localhost:5000/api/games/list", { params: {
-           "room": room
+           room
        }},  {
                 withCredentials: true
               });
-        if (!res.status === 200) {
-            router.push("/lobby")
+        console.log(res)
+        if (res.status !== 200) {
+            router.push({path: 'lobby'});
         }
        console.log(res.data);
    },
@@ -35,6 +53,9 @@ export default {
 },
 mounted: function() {
     this.checkNameSpace()
+    this.connectSocket()
+
+
 }
 
 }
