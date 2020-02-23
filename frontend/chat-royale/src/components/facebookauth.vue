@@ -17,7 +17,7 @@
           FB.login(function(response) {
             if (response.status === "connected"){
               router.push("/");
-              axios.post("http://localhost:5000/api/users/oauth/facebook", {"access_token": response.authResponse.accessToken }, {
+              axios.post("https://localhost:5000/api/users/oauth/facebook", {"access_token": response.authResponse.accessToken }, {
                 withCredentials: true
               });
             }
