@@ -21,7 +21,7 @@ export default {
             data["roomID"] = this.roomName;
             console.log(data);
             axios.post("https://localhost:5000/api/games/create", data);
-            alert("Room Name: " + this.roomName);
+            router.push({path: 'game/'+ this.roomName})
 
       },
       joinRoom() {

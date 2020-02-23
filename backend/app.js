@@ -55,7 +55,7 @@ app.get("/api/games/list", async (req, res) => {
         console.log("foreach room "+room)
         if (server.id === room) {
             console.log("IF FI IFIFIFIF")
-            return serverName = server.id
+            return serverName = server.id 
         }
     })
     console.log("here"+serverName)
