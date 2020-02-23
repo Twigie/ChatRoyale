@@ -49,16 +49,13 @@
              tokenCookie = cookie;
           }
         });
-        
+
         if (tokenCookie){
-          router.push("/");
+          router.push("/game");
         } else {
           let logoutelement = document.getElementById("login");
           logoutelement.classList.remove("d-none");
         }
-
-
-        console.log(cookieValue, "HULLO")
       } 
     },
     mounted: function() {
