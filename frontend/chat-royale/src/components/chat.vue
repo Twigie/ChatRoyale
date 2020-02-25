@@ -25,7 +25,6 @@
 
 <script>
 
-
 import io from 'socket.io-client';
 
 export default {
@@ -38,20 +37,24 @@ export default {
           socket : io('https://localhost:5000',{secure: true})
 
       }
-  },
+  },  
    methods: {
       sendMessage(){
-          //e.preventDefault();
-
+          console.log(this.socket)
           this.socket.emit('SEND_MESSAGE', {
               user: this.user,
-              message: this.message
+              message: this.message,
+              roomID: this.$route.params.roomID
           });
           this.message = ''
     
       },
   },
   mounted() {
+      this.socket.emit("JOIN_ROOM", {
+        "text": this.$route.params.roomID
+      })
+
       this.socket.on('MESSAGE', (data) =>{
           this.messages.push(data)
       });

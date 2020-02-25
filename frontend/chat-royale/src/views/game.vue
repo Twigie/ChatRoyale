@@ -1,7 +1,7 @@
 <template>
 <div>
   <chatComp></chatComp>
-  <button @click="connectSocket">Test</button>
+
 </div>
 </template>
 
@@ -25,23 +25,6 @@ export default {
       chatComp
   },
   methods: {
-   connectSocket(){
-       this.socket.on('connection',function() {
-           console.log('connected')
-        //    socket.emit('room', room);
-       })
-
-
-    //    console.log(this.$route.params)
-    //    this.socket = io({rejectUnauthorized: false});  
-    //    this.socket.on((message) => {
-    //        this.$broadcast("increaseMessage",message)
-    //    })
-
-   },
-   sendEmit(){
-       this.socket
-   },
    async checkNameSpace(){
        let room = this.$route.params.roomID
        const res = await axios.get("https://localhost:5000/api/games/list", { params: {
@@ -59,7 +42,6 @@ export default {
 },
 mounted: function() {
     this.checkNameSpace()
-    this.connectSocket()
 
 
 }

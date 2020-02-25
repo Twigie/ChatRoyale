@@ -62,9 +62,16 @@ const io = require("socket.io")(httpsServer);
 // socket server creation
 const namespaces = [];
 io.on("connection", (socket)=>{
+
+    socket.on("JOIN_ROOM", function(data){
+        console.log(data,"ROOM ID")
+        socket.join(data.text)
+    })
     console.log(socket.id);
     socket.on('SEND_MESSAGE', function(data){
-        io.emit('MESSAGE', data)
+        console.log(data, data.text)
+        io.to(data.roomID).emit('MESSAGE', data)
     })
+
 });
 
