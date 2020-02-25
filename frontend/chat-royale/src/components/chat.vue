@@ -6,15 +6,15 @@
         <div id="chat">
         <div v-for="(msg, index) in messages" :key="index">
             <div class="container">
-            <img src="../assets/logo.png" alt="Avatar">
+            <img v-bind:src="getPicture(msg)" alt="Avatar">
             <p>{{msg.user}}:  {{msg.message}} </p>
             </div>
         </div>
     </div>
-     <div class="container">
-        <input v-model="message" @keydown.enter="sendMessage" type="text" id="chatInput" value="test" required >
-        <button @click="sendMessage()" id="send" class="btn btn-primary">Send</button>
-        </div>
+     <form @submit.prevent="sendMessage()" class="container">
+        <input v-model="message" @keydown.enter="sendMessage()" type="text/submit" id="chatInput" value="test" required >
+        <button type="submit" @click="sendMessage()" id="send" class="btn btn-primary">Send</button>
+        </form>
 
 </div>
     
@@ -40,15 +40,21 @@ export default {
   },  
    methods: {
       sendMessage(){
+        console.log(this.message.length)
+        if(this.message.replace(/\s/g, '').length) {
           console.log(this.socket)
           this.socket.emit('SEND_MESSAGE', {
               user: this.user,
               message: this.message,
-              roomID: this.$route.params.roomID
+              roomID: this.$route.params.roomID,
+              userId: "2996679857061384"
           });
           this.message = ''
-    
+        }
       },
+      getPicture(msg) {
+        return `https://graph.facebook.com/v6.0/${msg.userId}/picture?type=large`;
+      }
   },
   mounted() {
       this.socket.emit("JOIN_ROOM", {
