@@ -4,26 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <div id="chat">
-        
-        <div class="container">
-        <img src="../assets/logo.png" alt="Avatar">
-        <p>Hello. How are you today?</p>
+        <div v-for="(msg, index) in messages" :key="index">
+            <div class="container">
+            <img src="../assets/logo.png" alt="Avatar">
+            <p>{{msg.user}}:  {{msg.message}} </p>
+            </div>
         </div>
-
-        <div class="container darker">
-        <img src="../assets/logo.png" alt="Avatar" class="right">
-        <p>Hey! I'm fine. Thanks for asking!</p>
-        </div>
-
-        <div class="container">
-        <img src="../assets/logo.png" alt="Avatar">
-        <p>Sweet! So, what do you wanna do today?</p>
-        </div>
-
-        <div class="container darker">
-        <img src="../assets/logo.png" alt="Avatar" class="right">
-        <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-        </div> 
     </div>
      <div class="container">
         <input v-model="message" @keydown.enter="sendMessage" type="text" id="chatInput" value="test" required >
@@ -40,38 +26,35 @@
 <script>
 
 
-
+import io from 'socket.io-client';
 
 export default {
   name: 'chatComp',
   data() {
-      message = "";
-      incMessage = "";
-  },
-  events: {
-      increaseMessage: function(){
-          this.createMessage(message);
+      return {
+          user: '',
+          message: '',
+          messages: [],
+          socket : io('https://localhost:5000',{secure: true})
+
       }
   },
-  methods: {
+   methods: {
       sendMessage(){
-          let html = `
-            <div class="container darker">
-            <img src="../assets/logo.png" alt="Avatar" class="right">
-            <p>${this.message}</p>
-            </div>
-            `;
-        document.getElementById("chat").innerHTML += html;
+          //e.preventDefault();
+
+          this.socket.emit('SEND_MESSAGE', {
+              user: this.user,
+              message: this.message
+          });
+          this.message = ''
+    
       },
-      createMessage(){
-          let html = `
-            <div class="container darker">
-            <img src="../assets/logo.png" alt="Avatar" class="right">
-            <p>${this.incMessage}</p>
-             </div>
-             `;
-        document.getElementById("chat").innerHTML += html;
-      }
+  },
+  mounted() {
+      this.socket.on('MESSAGE', (data) =>{
+          this.messages.push(data)
+      });
   }
 }
 </script>

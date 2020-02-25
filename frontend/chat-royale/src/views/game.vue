@@ -14,7 +14,11 @@ axios.defaults.withCredentials = true;
 export default {
   name: 'game',
   data() {
-      socket = ""
+      return{
+          socket : io('https://localhost:5000',{secure: true})
+
+      }
+      
   },
   props: [],
   components: {
@@ -22,8 +26,7 @@ export default {
   },
   methods: {
    connectSocket(){
-       this.socket = io('https://localhost:5000',{secure: true})
-       this.socket.on('connect',function() {
+       this.socket.on('connection',function() {
            console.log('connected')
         //    socket.emit('room', room);
        })
@@ -35,6 +38,9 @@ export default {
     //        this.$broadcast("increaseMessage",message)
     //    })
 
+   },
+   sendEmit(){
+       this.socket
    },
    async checkNameSpace(){
        let room = this.$route.params.roomID

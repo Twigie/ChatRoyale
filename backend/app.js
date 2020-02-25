@@ -29,15 +29,15 @@ app.use(cors({
 const port = process.env.PORT || 5000;
 const users = require("./routes/users");
 app.use("/api/users", users);
-app.post("/api/games/create", (req, res) => {
-    console.log(req.body," create");
-    let roomName = req.body.roomID;
-    let roomObj = {}
-    roomObj.lobby = io.join(roomName);
-    roomObj.id = roomName;
-    namespaces.push(roomObj);
-    res.send("created server");
-})
+// app.post("/api/games/create", (req, res) => {
+//     console.log(req.body," create");
+//     let roomName = req.body.roomID;
+//     let roomObj = {}
+//     roomObj.lobby = io.join(roomName);
+//     roomObj.id = roomName;
+//     namespaces.push(roomObj);
+//     res.send("created server");
+// })
 
 app.get("/api/games/list", (req, res) => {
     for (let i = 0; i < namespaces.length; i++) {
@@ -62,8 +62,9 @@ const io = require("socket.io")(httpsServer);
 // socket server creation
 const namespaces = [];
 io.on("connection", (socket)=>{
-    console.log("Someone Connected")
-})
-io.on("message",(message)=>{
-    console.log(message)
-})
+    console.log(socket.id);
+    socket.on('SEND_MESSAGE', function(data){
+        io.emit('MESSAGE', data)
+    })
+});
+
