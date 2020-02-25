@@ -26,7 +26,7 @@ passport.use("jwt", new JwtStrategy({
 
 passport.use("facebookToken", new FacebookTokenStrategy({
     clientID: "3563200747086858",
-    clientSecret: process.env.JWT_SECRET
+    clientSecret: process.env.APP_SECRET
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         console.log(accessToken, refreshToken, profile);

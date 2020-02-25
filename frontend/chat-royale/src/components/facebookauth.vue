@@ -16,10 +16,11 @@
        logIn() {
           FB.login(function(response) {
             if (response.status === "connected"){
-              router.push("/");
+              axios.get("https://localhost:")
               axios.post("https://localhost:5000/api/users/oauth/facebook", {"access_token": response.authResponse.accessToken }, {
                 withCredentials: true
               });
+              router.push("/lobby");
             }
             else
               location.reload();
@@ -31,16 +32,24 @@
           this.loggedIn = false;
         });
       },
-      async getLoginState(running){
+      async getLoginState(){
         await FB.getLoginStatus(function(response) {
-          console.log("Here", response, running)
           if (response.status === "connected"){
-            console.log("ITS TRUE YOURE LOGGED IN", this.loggedIn);
-            this.loggedIn = true;
-          }
+              return true;
+          } else
+              return false;
         });
       },
-      cookieCheck() {
+      async getUserId(){
+        await FB.getLoginStatus(function(response) {
+          if (response.status === "connected"){
+              return response.authResponse.userID;
+          } else
+              return false;
+        });
+      },
+      async cookieCheck() {
+        let userId = this.getUserId();
         let cookieValue = document.cookie;
         cookieValue = cookieValue.split(";")
         let tokenCookie = "";
@@ -50,8 +59,14 @@
           }
         });
 
+        if (!sessionStorage.getItem(userData)) {
+          const res = await axios.get("https://localhost:5000/api/users/details", { "userId": userId });
+          sessionStorage.setItem("userData", JSON.stringify(res));
+          console.log(res, userId, "BRAN");
+        }
+
         if (tokenCookie){
-          router.push("/game");
+          router.push("/lobby");
         } else {
           let logoutelement = document.getElementById("login");
           logoutelement.classList.remove("d-none");
