@@ -5,14 +5,14 @@
 
         <div id="chat">
         <div v-for="(msg, index) in messages" :key="index">
-            <div class="container">
+            <div class="container" >
             <img v-bind:src="getPicture(msg)" alt="Avatar">
             <p>{{msg.user}}:  {{msg.message}} </p>
             </div>
         </div>
     </div>
      <form @submit.prevent="sendMessage()" class="container">
-        <input v-model="message" @keydown.enter="sendMessage()" type="text/submit" id="chatInput" value="test" required >
+        <input v-model="message" @keydown.enter="sendMessage()" type="text/submit" id="chatInput" value="test" >
         <button type="submit" @click="sendMessage()" id="send" class="btn btn-primary">Send</button>
         </form>
 
@@ -71,14 +71,14 @@ export default {
 <style> 
 
 #chat { 
-    overflow: scroll;
-    height: 800px;
-    width:1000px;
+    overflow-y: auto;
+    height: 90vh;
+    width: 60vw;
     margin: 0 auto;
-    
+    word-wrap: break-word;
 }
 #chatInput {
-    width: 90%;
+    width: 90%
 }
 #send {
     float: right;
@@ -91,11 +91,6 @@ export default {
   margin: 10px 0;
 }
 
-/* Darker chat container */
-.darker {
-  border-color: #ccc;
-  background-color: #ddd;
-}
 
 /* Clear floats */
 .container::after {
