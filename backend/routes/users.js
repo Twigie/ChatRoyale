@@ -18,7 +18,8 @@ router.route("/secret")
 
 router.get("/details", async (req, res) => {
     // TODO:  Use projection instead of doing this jank ass shit
-    const userId = req.body.userId;    
+    let userId = req.query.userId;
+    console.log(userId)
     let selectedUser = await User.findOne({"facebook.id": userId}, (err, user) => {
             return user.toObject();
         });

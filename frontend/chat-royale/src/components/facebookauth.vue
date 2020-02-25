@@ -12,11 +12,16 @@
   axios.defaults.withCredentials = true;
 
     export default {
+      data: function() {
+        return {
+          userID: ""
+        }
+      },
     methods: {
        logIn() {
           FB.login(function(response) {
             if (response.status === "connected"){
-              axios.get("https://localhost:")
+              //TODO return the user OBJ formatted instead of "success"
               axios.post("https://localhost:5000/api/users/oauth/facebook", {"access_token": response.authResponse.accessToken }, {
                 withCredentials: true
               });
@@ -42,14 +47,13 @@
       },
       async getUserId(){
         await FB.getLoginStatus(function(response) {
-          if (response.status === "connected"){
-              return response.authResponse.userID;
+          if (response.status === "connected") {
+            this.userID = response.authResponse.userID;
           } else
               return false;
         });
       },
       async cookieCheck() {
-        let userId = this.getUserId();
         let cookieValue = document.cookie;
         cookieValue = cookieValue.split(";")
         let tokenCookie = "";
@@ -58,12 +62,24 @@
              tokenCookie = cookie;
           }
         });
+        console.log("hehe")
 
-        if (!sessionStorage.getItem(userData)) {
-          const res = await axios.get("https://localhost:5000/api/users/details", { "userId": userId });
-          sessionStorage.setItem("userData", JSON.stringify(res));
-          console.log(res, userId, "BRAN");
-        }
+        var userId = "";
+        await FB.getLoginStatus((response) => {
+          if (response.status === "connected") {
+            axios.get("https://localhost:5000/api/users/details", { params: {
+           "userId": response.authResponse.userId 
+       }});
+          } else
+              return false;
+        });
+
+
+      //   const res = await axios.get("https://localhost:5000/api/users/details", { params: {
+      //      userId
+      //  }});
+        // sessionStorage.setItem("userData", JSON.stringify(res));
+        
 
         if (tokenCookie){
           router.push("/lobby");

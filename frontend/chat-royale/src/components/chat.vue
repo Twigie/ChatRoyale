@@ -42,7 +42,6 @@ export default {
       sendMessage(){
         console.log(this.message.length)
         if(this.message.replace(/\s/g, '').length) {
-          console.log(this.socket)
           this.socket.emit('SEND_MESSAGE', {
               user: this.user,
               message: this.message,

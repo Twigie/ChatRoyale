@@ -27,23 +27,22 @@ export default {
   methods: {
    async checkNameSpace(){
        let room = this.$route.params.roomID
-       const res = await axios.get("https://localhost:5000/api/games/list", { params: {
-           room
-       }},  {
-                withCredentials: true
-              });
-        console.log(res)
-        if (res.status !== 200) {
-            router.push({path: 'lobby'});
-        }
-       console.log(res.data);
+       //good example of get request dont delet
+    //    const res = await axios.get("https://localhost:5000/api/games/list", { params: {
+    //        room
+    //    }},  {
+    //             withCredentials: true
+    //           });
+    //     console.log(res)
+    //     if (res.status !== 200) {
+    //         router.push({path: 'lobby'});
+    //     }
+    //    console.log(res.data);
    },
 
 },
 mounted: function() {
     this.checkNameSpace()
-
-
 }
 
 }

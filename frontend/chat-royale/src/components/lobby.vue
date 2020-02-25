@@ -1,6 +1,6 @@
 <template>
   <div>
-      <input v-model="roomName" type="text" value="test" >
+      <input v-model="roomName" type="text">
       <button class="btn btn-primary" @click="createRoom">Create Room</button>
       <button class="btn btn-danger" @click="joinRoom">Join Room</button>
   </div>
@@ -12,16 +12,15 @@ import io from 'socket.io-client';
 import axios from 'axios';
 export default {
   name: 'lobby',
-  data() {
-      roomName = ""
+  data: function() {
+      return {
+          roomName: ""
+      }
   },
   methods: {
       createRoom() {
-            let data = {};
-            data["roomID"] = this.roomName;
-            axios.post("https://localhost:5000/api/games/create", data);
+          // Figure out if we want to make rooms on the backend to mange/check?
             router.push({path: 'game/'+ this.roomName})
-
       },
       joinRoom() {
           router.push({path: 'game/'+ this.roomName})
