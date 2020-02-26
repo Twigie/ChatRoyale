@@ -18,3 +18,4 @@ npm run serve
 
 
 
+![alt text](frontend/chat-royale/src/assets/sprite.png)
