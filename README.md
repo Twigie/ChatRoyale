@@ -1,4 +1,4 @@
-# ChatRoyale
+![alt text](frontend/chat-royale/src/assets/wordLogo.png)
 
 To run backend
 
