@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import loginPage from '../views/loginPage'
 import game from '../views/game'
-import lobby from '../components/lobby'
+import lobby from '../views/lobby'
 
 Vue.use(VueRouter);
 const routes = [

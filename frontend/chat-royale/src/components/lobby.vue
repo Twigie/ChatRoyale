@@ -1,30 +1,25 @@
 <template>
-  <div>
-      <input v-model="roomName" type="text">
-      <button class="btn btn-primary" @click="createRoom">Create Room</button>
-      <button class="btn btn-danger" @click="joinRoom">Join Room</button>
-  </div>
+<div>
+</div>
 </template>
 
 <script>
-import router from '../router'
 import io from 'socket.io-client';
-import axios from 'axios';
 export default {
-  name: 'lobby',
-  data: function() {
+  name: 'lobbyComp',
+  data() {
       return {
-          roomName: ""
+          lobby: [],
+          scoket: io('https://localhost:5000',{secure: true})
+          
       }
   },
   methods: {
-      createRoom() {
-          // Figure out if we want to make rooms on the backend to mange/check?
-            router.push({path: 'game/'+ this.roomName})
-      },
-      joinRoom() {
-          router.push({path: 'game/'+ this.roomName})
-      }
+   
+},
+mounted() {
+    this.socket.on("LOBBY_LIST_UPDATE")
+     this.lobbyList.push(data)
 }}
 
 </script>

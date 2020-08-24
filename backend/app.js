@@ -39,15 +39,15 @@ app.use("/api/users", users);
 //     res.send("created server");
 // })
 
-app.get("/api/games/list", (req, res) => {
-    for (let i = 0; i < namespaces.length; i++) {
-        if (req.query.room === namespaces[i].id){
-            return res.status(200).send(namespaces[i].id);
-        }
-    }
-    return res.status(404).send("Requested lobby not found");
+// app.get("/api/games/list", (req, res) => {
+//     for (let i = 0; i < namespaces.length; i++) {
+//         if (req.query.room === namespaces[i].id){
+//             return res.status(200).send(namespaces[i].id);
+//         }
+//     }
+//     return res.status(404).send("Requested lobby not found");
     
-});
+// });
 
 const httpsServer = https.createServer(httpsOptions, app)
     .listen(port, () => {

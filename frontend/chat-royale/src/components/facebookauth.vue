@@ -1,5 +1,6 @@
 <template>
     <div>
+    <button id="bypassLogin" @click="bypassLogin" class="btn"> Bypass Facebook Login</button>
     <button id="login" @click="logIn()" class="btn btn-primary d-none"> Login to Facebook</button>
     <button @click="getLoginState(123)"> bran </button>
     <button id="logout" class="btn btn-danger d-none" @click="logOut()"> GET UT </button>
@@ -18,7 +19,10 @@
         }
       },
     methods: {
-       logIn() {
+      bypassLogin() {
+        router.push('/lobby')
+      },
+      logIn() {
           FB.login(function(response) {
             if (response.status === "connected"){
               //TODO return the user OBJ formatted instead of "success"

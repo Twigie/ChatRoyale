@@ -13,9 +13,10 @@ export default {
   methods: {
     routeLogin() {
       router.push({path: 'login'})
-    }
+    },
 
-}}
+}
+}
 
 </script>
 
